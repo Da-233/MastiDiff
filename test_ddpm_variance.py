@@ -2,19 +2,19 @@ import os
 import torch
 import torch.nn as nn
 from torchvision import utils
-from diffusers import UNet2DConditionModel, DDPMScheduler
+from diffusers import UNet2DConditionModel, DDPMScheduler,DDIMScheduler
 from tqdm.auto import tqdm
 
 class Config:
     # Scheduler 细节
     beta_schedule = "squaredcos_cap_v2"
-    clip_sample = True
+    clip_sample = False
     # 采样配置
     cfg = 5
     sampler = "DDPMScheduler" 
     variance_scale = 0.00001 
     NUM_CLASSES = 4
-    CHECKPOINT_PATH = r"ddpm_variance_22\checkpoint_epoch_29" # 替换为你最新的权重文件夹路径
+    CHECKPOINT_PATH = r"ddpm_variance_22\checkpoint_epoch_9" # 替换为你最新的权重文件夹路径
     DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
     image_size=256
     uncond_label = 4
@@ -59,12 +59,14 @@ def run_test_sample():
     # 注意：训练时用 squaredcos_cap_v2，采样器也必须匹配
     scheduler = DDPMScheduler(
         num_train_timesteps=1000,
-        beta_schedule="squaredcos_cap_v2",
+        beta_schedule=config.beta_schedule,
         prediction_type="epsilon",
-        variance_type="learned_range",
-        clip_sample=True
+        clip_sample=config.clip_sample,
+        variance_type="learned_range"
+        
     )
-    scheduler.set_timesteps(100) 
+    # 采样步数：DDPM 建议设多一点，如果为了快，可以用 DDIMScheduler (写法类似)
+    scheduler.set_timesteps(50) 
     # 备份与准备
     model.eval()
     label_proj.eval()
@@ -107,7 +109,7 @@ def run_test_sample():
 
     # 7. 后处理并保存
     images = ((x_t + 1) / 2).clamp(0, 1)
-    images = images ** 0.8 
+    images = images ** 0.7 
     save_name = f"test_1cfg_{Config.cfg}.png"
     utils.save_image(images, save_name, nrow=2)
     print(f"测试图已保存至: {save_name}")
