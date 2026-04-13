@@ -247,55 +247,76 @@ Four augmentation scales were tested to study the effect of synthetic data quant
 
 ### 5.1 Generative Quality Metrics
 
-#### FID Scores:
-- **DDPM (Model 1)**: [Value from `FID_lpips.txt`]
-- **DDPM-variance (Model 2)**: [Value from `FID_lpips.txt`]  
-- **LDM (Model 3)**: [Value from `FID_lpips.txt`]
+#### FID Scores (from `FID_lpips.txt`):
+- **DDPM (Model 1)**: 71.65 (IS: 4.69 ± 0.06) - Evaluated on `ddpm_augmented_v1/train`
+- **DDPM-variance (Model 2)**: [Value not recorded in current log file]  
+- **LDM (Model 3)**: 54.20 (IS: 5.28 ± 0.09) - Evaluated on `ldm_augmented_v2/train`
 
-*Lower FID indicates better distribution matching with real images.*
+*Lower FID indicates better distribution matching with real images. LDM achieves the best FID score (54.20), suggesting better generative quality, though DDPM-variance shows superior downstream classification performance.*
 
-#### LPIPS Diversity Scores:
-- **Intra-class diversity**: Measures variation within the same class
-- **Inter-class diversity**: Measures separation between different classes
-- **Optimal balance**: High intra-class diversity + clear inter-class separation
+#### LPIPS Diversity Scores (from `FID_lpips.txt`):
+- **DDPM (Model 1)**: 0.659 overall diversity score (range: 0.583-0.664 per class)
+- **LDM (Model 3)**: 0.649 overall diversity score (range: 0.574-0.645 per class)
+- **DDPM-variance (Model 2)**: [Value not recorded in current log file]
+
+*LPIPS measures perceptual diversity - higher scores indicate more diverse generated images. Both DDPM and LDM show good diversity (>0.64), with DDPM showing slightly higher overall diversity.*
 
 ### 5.2 Classification Performance Improvement
 
 The key finding: **All diffusion models improved downstream classification accuracy**, with DDPM-variance (Model 2) achieving the best results.
 
-#### Performance Comparison (from `Performance_Table.csv`):
+#### Performance Comparison (from `Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/Performance_Table.csv` - Model 2 Results):
 
 | Model | Baseline Accuracy | Augmented Accuracy | Improvement |
 |-------|-------------------|-------------------|-------------|
-| ResNet-18 | 68.99% | 83.54% | **+14.55%** |
-| Swin-T | 70.89% | 82.28% | **+11.39%** |
-| ViT-Tiny | 76.58% | 80.38% | **+3.80%** |
-| ConvNeXt-Tiny | 70.89% | 82.28% | **+11.39%** |
+| ResNet-18 | 68.99% | 92.31% | **+23.32%** |
+| Swin-T | 70.89% | 94.51% | **+23.62%** |
+| ViT-Tiny | 76.58% | 90.11% | **+13.53%** |
+| ConvNeXt-Tiny | 70.89% | 95.05% | **+24.16%** |
 
 **Key Observations**:
-1. **ResNet-18 benefits most** from augmentation (+14.55%), suggesting it was most limited by original data scarcity
-2. **ViT-Tiny shows smallest improvement** (+3.80%), possibly due to its stronger pretraining or different inductive biases
-3. **All models exceed 80% accuracy** with augmentation, demonstrating the effectiveness of diffusion-based data augmentation
+1. **ConvNeXt-Tiny achieves the highest absolute accuracy** (95.05%) and **largest improvement** (+24.16%) with DDPM-variance augmentation
+2. **All models exceed 90% accuracy** with DDPM-variance augmentation, demonstrating the superior effectiveness of this model for data augmentation
+3. **Swin-T shows remarkable improvement** (+23.62%), reaching 94.51% accuracy
+4. **Even ViT-Tiny**, which had the highest baseline accuracy, still improves by +13.53% to reach 90.11%
 
-##### ResNet-18 Performance Analysis (Best Improvement: +14.55%)
-![ResNet-18 Confusion Matrix](Classification_Experiments/Final_Analysis_Report_4_2/resnet18_confusion_matrix.png)
-*Figure: Confusion matrix for ResNet-18 trained on augmented data (Model 1). Shows per-class classification accuracy and error patterns.*
+*Note: These results represent the performance with **DDPM-variance (Model 2)** augmentation, which significantly outperforms the standard DDPM (Model 1) results shown in earlier experiments.*
 
-![ResNet-18 Performance Comparison](Classification_Experiments/Final_Analysis_Report_4_2/resnet18_comparison.png)
-*Figure: Performance comparison of ResNet-18 on baseline vs. augmented datasets. Demonstrates significant accuracy improvement across all metrics.*
+##### ResNet-18 Performance Analysis with DDPM-variance (+23.32% Improvement)
+![ResNet-18 Confusion Matrix](Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/resnet18_confusion_matrix.png)
+*Figure: Confusion matrix for ResNet-18 trained on DDPM-variance (Model 2) augmented data. Shows excellent per-class accuracy with minimal confusion between classes.*
 
-##### ConvNeXt-Tiny Performance Analysis (+11.39% Improvement)
-![ConvNeXt-Tiny Confusion Matrix](Classification_Experiments/Final_Analysis_Report_4_2/convnext_tiny_confusion_matrix.png)
-*Figure: Confusion matrix for ConvNeXt-Tiny, showing balanced performance across all 4 classes.*
+![ResNet-18 Performance Comparison](Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/resnet18_comparison.png)
+*Figure: Performance comparison of ResNet-18 on baseline vs. DDPM-variance augmented datasets. Demonstrates dramatic accuracy improvement from 68.99% to 92.31% (+23.32%).*
 
-![ConvNeXt-Tiny Performance Comparison](Classification_Experiments/Final_Analysis_Report_4_2/convnext_tiny_comparison.png)
-*Figure: ConvNeXt-Tiny performance comparison showing consistent improvement with augmented data.*
+##### ConvNeXt-Tiny Performance Analysis with DDPM-variance (+24.16% Improvement - Best Overall)
+![ConvNeXt-Tiny Confusion Matrix](Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/convnext_tiny_confusion_matrix.png)
+*Figure: Confusion matrix for ConvNeXt-Tiny trained on DDPM-variance augmented data. Shows near-perfect classification across all 4 classes with minimal errors.*
 
-##### Overall Performance Summary
-![Final Bar Comparison](Classification_Experiments/Final_Analysis_Report_4_2/Final_Bar_Comparison.png)
-*Figure: Comprehensive bar chart comparing all four classifiers' performance on baseline vs. augmented datasets. All models show significant improvement with diffusion-based data augmentation.*
+![ConvNeXt-Tiny Performance Comparison](Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/convnext_tiny_comparison.png)
+*Figure: ConvNeXt-Tiny performance comparison showing dramatic improvement from 70.89% to 95.05% (+24.16%) - the highest overall accuracy achieved in this study.*
 
-*Additional detailed confusion matrices and comparison charts for Swin-T and ViT-Tiny are available in the `Final_Analysis_Report_4_2/` folder.*
+##### Overall Performance Summary with DDPM-variance
+![Final Bar Comparison](Classification_Experiments/Final_Analysis_Report_ddpm_variance_V2/Final_Bar_Comparison.png)
+*Figure: Comprehensive bar chart comparing all four classifiers' performance on baseline vs. DDPM-variance augmented datasets. All models achieve over 90% accuracy, with ConvNeXt-Tiny reaching 95.05% - demonstrating the exceptional effectiveness of DDPM-variance for medical image data augmentation.*
+
+*Additional detailed confusion matrices and comparison charts for Swin-T and ViT-Tiny trained on DDPM-variance augmented data are available in the `Final_Analysis_Report_ddpm_variance_V2/` folder.*
+
+##### Comparison Across All Three Models
+The table below shows the performance improvement comparison across all three diffusion models for ResNet-18:
+
+| Model | Baseline | Augmented | Improvement | Relative Advantage |
+|-------|----------|-----------|-------------|-------------------|
+| **DDPM (Model 1)** | 68.99% | 83.54% | +14.55% | Baseline |
+| **DDPM-variance (Model 2)** | 68.99% | 92.31% | +23.32% | **+8.77% better than Model 1** |
+| **LDM (Model 3)** | 68.99% | 92.41% | +23.42% | **+8.87% better than Model 1** |
+
+*Analysis*: Both DDPM-variance (Model 2) and LDM (Model 3) show dramatically better performance than standard DDPM (Model 1), with improvements around +23.3% vs +14.55%. While LDM shows slightly better ResNet-18 performance (+23.42% vs +23.32%), DDPM-variance achieves the highest overall accuracy with ConvNeXt-Tiny (95.05%) and best balance across all metrics (see Section 5.3).
+
+*Complete results for all models*:
+- **Model 1 (DDPM)**: `Final_Analysis_Report_4_2/`
+- **Model 2 (DDPM-variance)**: `Final_Analysis_Report_ddpm_variance_V2/`
+- **Model 3 (LDM)**: `Final_Analysis_Report_vdm_2/`
 
 ### 5.3 Model Comparison: DDPM vs DDPM-variance vs LDM
 
