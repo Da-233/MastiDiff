@@ -9,7 +9,7 @@ from tqdm import tqdm
 
 # ================= 1. 配置路径 =================
 REAL_DIR = "datasets/train"      # 真实数据根目录
-FAKE_DIR = "Base_datasets_augmented_4/train"      # 已生成的 5000 张/类 根目录
+FAKE_DIR = "ddpm_augmented_v1/train"      # 已生成的 5000 张/类 根目录
 SAVE_FILE = "FID_lpips.txt"              # 保存的文件名
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

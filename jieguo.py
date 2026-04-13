@@ -13,8 +13,8 @@ from torchvision import datasets, transforms, models
 class Config:
     # 实验配置 - 可以根据需要修改这些值
     base_experiment = "Base_Dataset_2"          # 原始数据集实验
-    aug_experiment = "Augmented_Dataset_vdm_2"    # 数据增强实验
-    save_dir = "Classification_Experiments/Final_Analysis_Report_vdm_2" 
+    aug_experiment = "Augmented_Dataset_ddpm_variance"    # 数据增强实验
+    save_dir = "Classification_Experiments/Final_Analysis_Report_ddpm_variance_1" 
     
     # 模型配置 - 与 compare_4_model.py 保持一致
     model_ids = ["resnet18", "swin_t", "vit_tiny", "convnext_tiny"]
