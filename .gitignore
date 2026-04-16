@@ -14,7 +14,7 @@ ldm_augmented*/
 *_synthetic*/
 *_generated*/
 new_base_datasets/
-hybrid_final_5000_*/
+hybrid_alpha_*/
 
 # =====================================================
 # 🧪 DDPM / LDM / VARIANCE 实验输出（全部忽略）
@@ -49,6 +49,7 @@ Classification_Experiments/Final_Analysis_Report_3/
 Classification_Experiments/Final_Analysis_Report_4/
 
 Classification_Experiments/Five_Way_Comparison
+Classification_Experiments/mixed_Dataset_*/
 
 
 
