@@ -13,9 +13,9 @@ import numpy as np
 # 1. 配置类：增加训练策略参数
 # ==========================================
 class Config:
-    exp_phase = "mixed_Dataset_0.2"  
+    exp_phase = "mixed_Dataset_0.8"  
     root_dir = f"Classification_Experiments/{exp_phase}"
-    train_dir = "./hybrid_alpha_0.2/train" 
+    train_dir = "./hybrid_alpha_0.8/train" 
     test_dir = "./new_base_datasets/test"
     
     model_list = ["swin_t","convnext_tiny","resnet18","vit_tiny"] 
@@ -30,8 +30,8 @@ class Config:
     patience = 12                      
     
     # 数据增强/防过拟合
-    mixup_alpha = 0.1                  
-    label_smoothing = 0.1              
+    mixup_alpha = 0.05                  
+    label_smoothing = 0.05          
     
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

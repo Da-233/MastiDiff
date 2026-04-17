@@ -1,0 +1,5 @@
+Model,DDPM VARIANCE  extra 5000 images added,LDM  extra 5000 images added,mixed_data_ldm_0.2,mixed_data_ldm_0.5,mixed_datd_ldm_0.8
+Convnext-Tiny,95.05,91.77,95.05,96.15,97.8
+ResNet-18,92.31,92.41,93.41,95.05,95.05
+Swin-T,94.51,90.51,95.6,93.96,94.51
+ViT-Tiny,90.11,87.97,92.86,90.66,91.76

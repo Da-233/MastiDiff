@@ -5,10 +5,11 @@ import os
 
 
 DATASETS = {
-    "Original": "Classification_Experiments/Base_Dataset_1/results",
-    "DDPM extra 5000 images added": "Classification_Experiments/Augmented_Dataset_4_2/results", 
     "LDM  extra 5000 images added": "Classification_Experiments/Augmented_Dataset_vdm_2/results",
-    "DDPM VARIANCE  extra 5000 images added": "Classification_Experiments/Augmented_Dataset_ddpm_variance_V2/results"
+    "DDPM VARIANCE  extra 5000 images added": "Classification_Experiments/Augmented_Dataset_ddpm_variance_V2/results",
+    "mixed_data_ldm_0.2":"Classification_Experiments/mixed_Dataset_0.2/results",
+    "mixed_data_ldm_0.5":"Classification_Experiments/mixed_Dataset_0.5/results",
+    "mixed_datd_ldm_0.8":"Classification_Experiments/mixed_Dataset_0.8/results"
 }
 
 
@@ -20,7 +21,7 @@ MODELS = {
 }
 
 
-SAVE_DIR = "Classification_Experiments/extra_images5000_added_ddpm_vdm_variance"
+SAVE_DIR = "Classification_Experiments/mixed_data"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 # ================= Data Extraction =================
@@ -97,7 +98,7 @@ def create_comparison_bar_chart(results):
     # Add decorations
     plt.xlabel('Model', fontsize=14, fontweight='bold')
     plt.ylabel('Maximum Test Accuracy (%)', fontsize=14, fontweight='bold')
-    plt.title('ddpm_vdm Comparison: Maximum Test Accuracy', fontsize=16, fontweight='bold', pad=20)
+    plt.title('mixed_data Comparison: Maximum Test Accuracy', fontsize=16, fontweight='bold', pad=20)
     plt.xticks(x, model_names, fontsize=12)
     plt.legend(fontsize=12)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
@@ -138,19 +139,19 @@ def create_summary_table(results_df):
     # Calculate improvement percentages for all augmentations
     if 'Original' in pivot_df.columns:
         if 'DDPM extra 5000 images added' in pivot_df.columns:
-            pivot_df['DDPM extra 5000 images added(%)'] = pivot_df['DDPM extra 5000 images added'] - pivot_df['Original']
+            pivot_df['DDPM extra 5000 images added(%)'] = pivot_df['DDPM extra 5000 images added'] - pivot_df['LDM  extra 5000 images added']
         
-        if 'LDM extra 5000 images added' in pivot_df.columns:
-            pivot_df['DDPM extra 5000 images added(%)'] = pivot_df['LDM extra 5000 images added'] - pivot_df['Original']
+        if 'mixed_data_ldm_0.2' in pivot_df.columns:
+            pivot_df['mixed_data_ldm_0.2 added(%)'] = pivot_df['mixed_data_ldm_0.2 added'] - pivot_df['LDM  extra 5000 images added']
         
-        if 'DDPM VARIANCE  extra 5000 images added' in pivot_df.columns:
-            pivot_df['DDPM VARIANCE  extra 5000 images added(%)'] = pivot_df['DDPM VARIANCE  extra 5000 images added'] - pivot_df['Original']
+        if 'mixed_data_ldm_0.5' in pivot_df.columns:
+            pivot_df['mixed_datd_ldm_0.5 added(%)'] = pivot_df['mixed_datd_ldm_0.8 added'] - pivot_df['LDM  extra 5000 images added']
         
-        if 'extra 5000 images added' in pivot_df.columns:
-            pivot_df['extra 5000 images added(%)'] = pivot_df['extra 5000 images added'] - pivot_df['Original']
+        if 'mixed_datd_ldm_0.8' in pivot_df.columns:
+            pivot_df['mixed_datd_ldm_0.8 added(%)'] = pivot_df['mixed_datd_ldm_0.8 added'] - pivot_df['LDM  extra 5000 images added']
     
     # Save as CSV
-    csv_path = os.path.join(SAVE_DIR, "DDPM_VARIACNE_LDM_Data_Augmentation_Comparison_Summary.csv")
+    csv_path = os.path.join(SAVE_DIR, "mixed_data_Comparison_Summary.csv")
     pivot_df.to_csv(csv_path)
     
     print(f"📋 Summary table saved to: {csv_path}")
