@@ -1,6 +1,6 @@
 # Medical Image Synthesis and Data Augmentation Using Diffusion Models
 
-*A Graduate Thesis Project on Ultrasound Image Analysis with DDPM, DDPM-variance, and Latent Diffusion Models*
+*An Undergraduate Thesis Project on Ultrasound Image Analysis with DDPM, DDPM-variance, and Latent Diffusion Models*
 
 ---
 
@@ -667,7 +667,7 @@ If you use this codebase or build upon this work, please cite:
 @article{your_thesis_2026,
   title={Diffusion-Based Data Augmentation for Medical Image Classification: A Comparative Study of DDPM, DDPM-variance, and Latent Diffusion Models},
   author={Junze Ye},
-  journal={Graduate Thesis},
+  journal={Undergraduate Thesis},
   year={2026},
   publisher={NJAU}
 }
@@ -690,7 +690,7 @@ If you use this codebase or build upon this work, please cite:
 
 ## Acknowledgments
 
-This work was conducted as part of a graduate thesis at [NJAU]. Special thanks to the open-source community for the Diffusers library and pretrained models that made this research possible.
+This work was conducted as part of an undergraduate thesis project at [NJAU]. Special thanks to my supervisor, Professor Zhai, for guidance and support throughout this project. Also thanks to the open-source community for the Diffusers library and pretrained models that made this research possible.
 
 ## License
 
