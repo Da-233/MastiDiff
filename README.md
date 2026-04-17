@@ -690,7 +690,7 @@ If you use this codebase or build upon this work, please cite:
 
 ## Acknowledgments
 
-This work was conducted as part of an undergraduate thesis project at [NJAU]. Special thanks to my supervisor, Professor Zhai, for guidance and support throughout this project. Also thanks to the open-source community for the Diffusers library and pretrained models that made this research possible.
+This work was conducted as part of an undergraduate thesis project at [NJAU]. Special thanks to my supervisor, Professor Zhai, for guidance and support throughout this project. Also thanks to the open-source community for the Diffusers library that made this research possible.
 
 ## License
 
